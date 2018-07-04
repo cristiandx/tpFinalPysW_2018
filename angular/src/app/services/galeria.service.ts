@@ -14,7 +14,7 @@ export class GaleriaService {
   }
 
   getAll() {
-    return this._http.get('http://localhost' + this.port + '/prueba/symfony/web/app_dev.php/' + this.route + '/')
+    return this._http.get('http://localhost' + this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/')
       .map(res => res.json());
   }
 
@@ -23,7 +23,7 @@ export class GaleriaService {
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(data);
     console.log('entro service create');
-    return this._http.post('http://localhost' + this.port + '/prueba/symfony/web/app_dev.php/' + this.route + '/new', body, options)
+    return this._http.post('http://localhost' + this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/new', body, options)
       .map((res: Response) => res.json());
   }
 
@@ -33,13 +33,13 @@ export class GaleriaService {
     const body = JSON.stringify(data);
     // envio en el body el mensaje transformado en un JSON
     return this._http.post('http://localhost' +
-     this.port + '/prueba/symfony/web/app_dev.php/' + this.route + '/' + data.id + '/edit', body, options)
+     this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/' + data.id + '/edit', body, options)
       .map((res: Response) => res.json());
   }
 
   delete(data: any) {
     // utilizo el metodo delete de http que es el configurado en el deleteAction de Symfony
-    return this._http.delete(('http://localhost' + this.port + '/prueba/symfony/web/app_dev.php/' + this.route + '/' + data.id))
+    return this._http.delete(('http://localhost' + this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/' + data.id))
       .map((res: Response) => res.json());
   }
 }

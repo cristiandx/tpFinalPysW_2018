@@ -16,7 +16,7 @@ export class AuthenticationService {
   constructor(private http: Http) { }
 
   login(usuario: string, password: string) {
-      return this.http.post('http://localhost/prueba/symfony/web/app_dev.php/usuario/authenticate',
+      return this.http.post('http://localhost/tpFinalPysW_2018/symfony/web/app_dev.php/usuario/authenticate',
        JSON.stringify({ usuario: usuario, password: password }),
       ).map(res => res.json());
   }

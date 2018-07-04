@@ -4,14 +4,22 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html">Dashboard</a>
+          <a routerLink="/home">Galeria</a>
         </li>
-        <li class="breadcrumb-item active">Blank Page</li>
+        <li class="breadcrumb-item active">Locales Disponibles</li>
       </ol>
       <div class="row">
         <div class="col-12">
-          <h1>Blank</h1>
-          <p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>
+          <div class="row text-center text-lg-left">
+
+            <div  *ngFor="let comerce of array"
+             class="col-lg-3 col-md-4 col-xs-6">
+              <a href="#" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" src="assets/img/{{comerce.pathimagen}}" alt="">
+              </a>
+            </div>
+            
+          </div>
         </div>
       </div>
     </div>

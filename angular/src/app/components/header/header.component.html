@@ -13,7 +13,7 @@
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
         <a class="nav-link" routerLink="/home">
           <i class="fa fa-fw fa-dashboard"></i>
-          <span class="nav-link-text">Dashboard</span>
+          <span class="nav-link-text">Galeria</span>
         </a>
       </li>
       <li *ngIf="isAdmin || isPropietario" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
@@ -22,7 +22,7 @@
           <span class="nav-link-text">Usuarios</span>
         </a>
       </li>
-      <li *ngIf="isAdmin || isAdministrativo"
+      <li *ngIf="isAdmin || isAdministrativo || isPropietario "
        class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
           <i class="fa fa-fw fa-wrench"></i>
