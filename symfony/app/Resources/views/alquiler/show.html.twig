@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Alquiler</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ alquiler.id }}</td>
+            </tr>
+            <tr>
+                <th>Plazomes</th>
+                <td>{{ alquiler.plazomes }}</td>
+            </tr>
+            <tr>
+                <th>Costoalquiler</th>
+                <td>{{ alquiler.costoalquiler }}</td>
+            </tr>
+            <tr>
+                <th>Fechaalquiler</th>
+                <td>{% if alquiler.fechaalquiler %}{{ alquiler.fechaalquiler|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('alquiler_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('alquiler_edit', { 'id': alquiler.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

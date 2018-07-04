@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Locals list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Superficie</th>
+                <th>Habilitado</th>
+                <th>Costomes</th>
+                <th>Pathimagen</th>
+                <th>Alquilado</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for local in locals %}
+            <tr>
+                <td><a href="{{ path('local_show', { 'id': local.id }) }}">{{ local.id }}</a></td>
+                <td>{{ local.superficie }}</td>
+                <td>{% if local.habilitado %}Yes{% else %}No{% endif %}</td>
+                <td>{{ local.costomes }}</td>
+                <td>{{ local.pathimagen }}</td>
+                <td>{% if local.alquilado %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('local_show', { 'id': local.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('local_edit', { 'id': local.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('local_new') }}">Create a new local</a>
+        </li>
+    </ul>
+{% endblock %}

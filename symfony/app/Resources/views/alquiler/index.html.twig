@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Alquilers list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Plazomes</th>
+                <th>Costoalquiler</th>
+                <th>Fechaalquiler</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for alquiler in alquilers %}
+            <tr>
+                <td><a href="{{ path('alquiler_show', { 'id': alquiler.id }) }}">{{ alquiler.id }}</a></td>
+                <td>{{ alquiler.plazomes }}</td>
+                <td>{{ alquiler.costoalquiler }}</td>
+                <td>{% if alquiler.fechaalquiler %}{{ alquiler.fechaalquiler|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('alquiler_show', { 'id': alquiler.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('alquiler_edit', { 'id': alquiler.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('alquiler_new') }}">Create a new alquiler</a>
+        </li>
+    </ul>
+{% endblock %}

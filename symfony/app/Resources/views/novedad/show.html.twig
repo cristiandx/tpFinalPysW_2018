@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Novedad</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ novedad.id }}</td>
+            </tr>
+            <tr>
+                <th>Texto</th>
+                <td>{{ novedad.texto }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{{ novedad.estado }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('novedad_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('novedad_edit', { 'id': novedad.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

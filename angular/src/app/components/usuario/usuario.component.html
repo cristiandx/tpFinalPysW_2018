@@ -1,0 +1,143 @@
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a routeLink="/home">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">ADMINISTRACION DE USUARIOS</li>
+    </ol>
+    <!--formulario usuarios-->
+    <div class="row">
+      <div class="col-sm-8 mx-auto">
+        <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+          <div class="col">Email</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="email" type="email" placeholder="ejemplo@mail.com"
+                   [(ngModel)]="usuario.email" #email="ngModel" required/>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              El email es necesario
+            </div>
+          </div>
+          <div class="col">Usuario</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="usuario" type="text"
+            
+            [(ngModel)]="usuario.usuario" #username="ngModel" required/>
+            <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+              El usuario es necesario
+            </div>
+            <div *ngIf="(username.dirty || username.touched) && userValid" class="alert alert-danger">
+              El nombre de usuario no esta disponible
+            </div>
+          </div>
+          <div class="col">Password</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="password" type="password"
+                   [(ngModel)]="usuario.password" #password="ngModel" required/>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+              El password es necesario
+            </div>
+          </div>
+          <div class="col">Activo</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="activo" type="checkbox"
+                   [(ngModel)]="usuario.activo"/>
+          </div>
+          <div class="col">Perfil</div>
+          <div class="col-10 mb-2">
+            <select name="perfil" class="form-control"
+                    [(ngModel)]="usuario.perfil"
+                    #perfil="ngModel" required>
+              <option value="administrador">Administrador</option>
+              <option value="administrativo">Administrativo</option>
+              <option value="propietario">Propietario</option>
+            </select>
+            <div *ngIf="perfil.invalid && (perfil.dirty || perfil.touched)" class="alert alert-danger">
+              El perfil es necesario
+            </div>
+          </div>
+          <div class="row" *ngIf="!btnactualizar">
+            <button type="submit" class="btn btn-primary"
+                    [disabled]="!userForm.form.valid || userValid"
+                    (click)="save()">Guardar
+            </button>
+          </div>
+          <div class="row" *ngIf="btnactualizar">
+            <button class="btn btn-primary"
+                    [disabled]="!userForm.form.valid"
+                    (click)="update()">Actualizar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="col-md-8 mx-auto mt-2">
+          <table class="table table-striped text-center" [mfData]="array" #mf="mfDataTable" [mfRowsOnPage]="4">
+            <thead>
+            <tr>
+              <th style="width: 10%">
+                <mfDefaultSorter by="email">Email</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="usuario">Usuario</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="password">Password</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="activo">Activo</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="perfil">Perfil</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="">Acciones</mfDefaultSorter>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of mf.data">
+              <td>{{item.email}}</td>
+              <td>{{item.usuario}}</td>
+              <td>{{item.password}}</td>
+              <td>{{item.activo}}</td>
+              <td>{{item.perfil}}</td>
+              <td>
+                <button class="btn" 
+                        (click)="elegir(item)">Seleccionar
+                </button>
+                <button class="btn"
+                        (click)="eliminar(item)">Eliminar
+                </button>
+              </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid-->
+  <!-- /.content-wrapper-->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright © PySW 2018</small>
+      </div>
+    </div>
+  </footer>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+ 

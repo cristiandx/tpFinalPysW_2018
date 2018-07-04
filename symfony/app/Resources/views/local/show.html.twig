@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Local</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ local.id }}</td>
+            </tr>
+            <tr>
+                <th>Superficie</th>
+                <td>{{ local.superficie }}</td>
+            </tr>
+            <tr>
+                <th>Habilitado</th>
+                <td>{% if local.habilitado %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Costomes</th>
+                <td>{{ local.costomes }}</td>
+            </tr>
+            <tr>
+                <th>Pathimagen</th>
+                <td>{{ local.pathimagen }}</td>
+            </tr>
+            <tr>
+                <th>Alquilado</th>
+                <td>{% if local.alquilado %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('local_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('local_edit', { 'id': local.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

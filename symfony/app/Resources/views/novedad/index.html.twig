@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Novedads list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Texto</th>
+                <th>Estado</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for novedad in novedads %}
+            <tr>
+                <td><a href="{{ path('novedad_show', { 'id': novedad.id }) }}">{{ novedad.id }}</a></td>
+                <td>{{ novedad.texto }}</td>
+                <td>{{ novedad.estado }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('novedad_show', { 'id': novedad.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('novedad_edit', { 'id': novedad.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('novedad_new') }}">Create a new novedad</a>
+        </li>
+    </ul>
+{% endblock %}

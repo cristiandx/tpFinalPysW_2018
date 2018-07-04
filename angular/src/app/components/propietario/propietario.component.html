@@ -1,0 +1,139 @@
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a routeLink="/home">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">ADMINISTRACION DE PROPIETARIOS</li>
+    </ol>
+    <!--formulario usuarios-->
+    <div class="row">
+      <div class="col-sm-8 mx-auto">
+        <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+          <div class="col">Apellido</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="apellido" type="text" placeholder="Apellido"
+                   [(ngModel)]="propietario.apellido" #apellido="ngModel" required/>
+            <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="alert alert-danger">
+              El apellido es obligatorio
+            </div>
+          </div>
+          <div class="col">Nombres</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="nombres" type="text"
+            [(ngModel)]="propietario.nombres" #nombres="ngModel" required/>
+            <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
+              El nombre es obligatorio
+            </div>
+          </div>
+          <div class="col">Dni</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="dni" type="text"
+                   [(ngModel)]="propietario.dni" #dni="ngModel" required/>
+            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
+              El dni es necesario
+            </div>
+          </div>
+          <div class="col">Email</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="email" type="email"
+                   [(ngModel)]="propietario.email" #email="ngModel" required/>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              El email es necesario
+            </div>
+          </div>
+
+          <div class="col">Telefono</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="telefono" type="number"
+                   [(ngModel)]="propietario.telefono" #telefono="ngModel" required/>
+            <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert alert-danger">
+              El telefono es necesario
+            </div>
+          </div>
+
+          <div class="row" *ngIf="!btnactualizar">
+            <button type="submit" class="btn btn-primary"
+                    [disabled]="!myForm.form.valid || userValid"
+                    (click)="save()">Guardar
+            </button>
+          </div>
+          <div class="row" *ngIf="btnactualizar">
+            <button class="btn btn-primary"
+                    [disabled]="!myForm.form.valid"
+                    (click)="update()">Actualizar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="col-md-8 mx-auto mt-2">
+          <table class="table table-striped text-center" [mfData]="array" #mf="mfDataTable" [mfRowsOnPage]="4">
+            <thead>
+            <tr>
+              <th style="width: 10%">
+                <mfDefaultSorter by="apellido">Apellido</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="nombre">Nombre</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="dni">Dni</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="email">Email</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="telefono">Telefono</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="">Acciones</mfDefaultSorter>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of mf.data">
+              <td>{{item.apellido}}</td>
+              <td>{{item.nombre}}</td>
+              <td>{{item.dni}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.telefono}}</td>
+              <td>
+                <button class="btn" 
+                        (click)="elegir(item)">Seleccionar
+                </button>
+                <button class="btn"
+                        (click)="eliminar(item)">Eliminar
+                </button>
+              </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid-->
+  <!-- /.content-wrapper-->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright © PySW 2018</small>
+      </div>
+    </div>
+  </footer>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+ 
