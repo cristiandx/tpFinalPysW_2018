@@ -71,7 +71,7 @@
               <!--  -->
 
           <div class="row" *ngIf="!btnactualizar">
-            <button type="submit" class="btn btn-primary" [disabled]="!myForm.form.valid || userValid"
+            <button type="submit" class="btn btn-primary" [disabled]="!myForm.form.valid"
             (click)="save()">Guardar
             </button>
           </div>
@@ -100,19 +100,19 @@
             <thead>
               <tr>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="superficie">Propietario</mfDefaultSorter>
+                  <mfDefaultSorter by="propietario">Propietario</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="habilitado">Local</mfDefaultSorter>
+                  <mfDefaultSorter by="local">Local</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="costomes">Plazo Mes</mfDefaultSorter>
+                  <mfDefaultSorter by="plazomes">Plazo Mes</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="pathimagen">Costo Alquiler</mfDefaultSorter>
+                  <mfDefaultSorter by="costoalquiler">Costo Alquiler</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="alquilado">Fecha</mfDefaultSorter>
+                  <mfDefaultSorter by="fecha">Fecha</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
                   <mfDefaultSorter by="">Acciones</mfDefaultSorter>
@@ -125,7 +125,7 @@
                 <td>{{item.local.alquilado}}</td>
                 <td>{{item.plazomes}}</td>
                 <td>{{item.costoalquiler}}</td>
-                <td>{{item.fechaAlquiler}}</td>
+                <td>{{item.fechaalquiler.timestamp * 1000 | date: 'dd/MM/yyyy'}}</td>
                 <td>
                   <button class="btn" (click)="elegir(item)">Seleccionar
                   </button>
