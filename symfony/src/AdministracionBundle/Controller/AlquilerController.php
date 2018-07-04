@@ -29,12 +29,23 @@ class AlquilerController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $alquileres = $em->getRepository('AdministracionBundle:Alquiler')->findAll();
+        $response = new Response();
+        $encoders = array(new JsonEncoder());
 
-        $alquilers = $em->getRepository('AdministracionBundle:Alquiler')->findAll();
+        $normalizers = array((new ObjectNormalizer())->setIgnoredAttributes(
+            [
+                "__initializer__", 
+                "__cloner__",
+                "__isInitialized__"
+            ]));
 
-        return $this->render('alquiler/index.html.twig', array(
-            'alquilers' => $alquilers,
-        ));
+        $serializer = new Serializer($normalizers, $encoders);
+        $response->setContent(json_encode(array(
+        'alquileres' => $serializer->serialize($alquileres, 'json'),
+        )));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -45,22 +56,35 @@ class AlquilerController extends Controller
      */
     public function newAction(Request $request)
     {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace($data);
+        
         $alquiler = new Alquiler();
-        $form = $this->createForm('AdministracionBundle\Form\AlquilerType', $alquiler);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($alquiler);
-            $em->flush();
-
-            return $this->redirectToRoute('alquiler_show', array('id' => $alquiler->getId()));
-        }
-
-        return $this->render('alquiler/new.html.twig', array(
-            'alquiler' => $alquiler,
-            'form' => $form->createView(),
-        ));
+        //confecciono una entidad empresa para asignar a mensaje
+        $propietarioArray= $request->request->get('propietario');
+        $idPropietario = $propietarioArray['id'];
+        $em = $this->getDoctrine()->getManager();
+        $propietario = $em->getRepository("AdministracionBundle:Alquiler")->find($idPropietario);
+        $alquiler->setPropietario($propietario);
+        
+        $alquiler->set($request->request->get('desde'));
+        $mensaje->setHasta($request->request->get('hasta'));
+        $mensaje->setTexto($request->request->get('texto'));
+        $fecha = new \DateTime($request->request->get('fecha'));
+        $mensaje->setFecha($fecha);
+        
+        //confecciono una entidad empresa para asignar a mensaje
+        $empresaArray= $request->request->get('empresa');
+        $idEmpresa = $empresaArray['id'];
+        $em = $this->getDoctrine()->getManager();
+        $empresa = $em->getRepository("MensajeBundle:Empresa")->find($idEmpresa);
+        $mensaje->setEmpresa($empresa);
+        
+        $em->persist($mensaje);
+        $em->flush();
+        
+        $result['status'] = 'ok';
+        return new Response(json_encode($result), 200);
     }
 
     /**
