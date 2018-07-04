@@ -64,44 +64,31 @@ class AlquilerController extends Controller
         $propietarioArray= $request->request->get('propietario');
         $idPropietario = $propietarioArray['id'];
         $em = $this->getDoctrine()->getManager();
-        $propietario = $em->getRepository("AdministracionBundle:Alquiler")->find($idPropietario);
+        $propietario = $em->getRepository("AdministracionBundle:Propietario")->find($idPropietario);
         $alquiler->setPropietario($propietario);
         
-        $alquiler->set($request->request->get('desde'));
-        $mensaje->setHasta($request->request->get('hasta'));
-        $mensaje->setTexto($request->request->get('texto'));
+         //confecciono una entidad empresa para asignar a mensaje
+         $localArray= $request->request->get('local');
+         $idLocal = $localArray['id'];
+         $em = $this->getDoctrine()->getManager();
+         $local = $em->getRepository("AdministracionBundle:Local")->find($idLocal);
+         $alquiler->setLocal($local);
+
+        $alquiler->setPlazomes($request->request->get('plazomes'));
+        $alquiler->setCostoalquiler($request->request->get('costoalquiler'));
+        
         $fecha = new \DateTime($request->request->get('fecha'));
-        $mensaje->setFecha($fecha);
-        
-        //confecciono una entidad empresa para asignar a mensaje
-        $empresaArray= $request->request->get('empresa');
-        $idEmpresa = $empresaArray['id'];
-        $em = $this->getDoctrine()->getManager();
-        $empresa = $em->getRepository("MensajeBundle:Empresa")->find($idEmpresa);
-        $mensaje->setEmpresa($empresa);
-        
-        $em->persist($mensaje);
+        $alquiler->setFechaalquiler($fecha);
+                
+        $em->persist($alquiler);
         $em->flush();
         
         $result['status'] = 'ok';
         return new Response(json_encode($result), 200);
     }
 
-    /**
-     * Finds and displays a alquiler entity.
-     *
-     * @Route("/{id}", name="alquiler_show")
-     * @Method("GET")
-     */
-    public function showAction(Alquiler $alquiler)
-    {
-        $deleteForm = $this->createDeleteForm($alquiler);
-
-        return $this->render('alquiler/show.html.twig', array(
-            'alquiler' => $alquiler,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+   
+  
 
     /**
      * Displays a form to edit an existing alquiler entity.
@@ -109,23 +96,37 @@ class AlquilerController extends Controller
      * @Route("/{id}/edit", name="alquiler_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Alquiler $alquiler)
+    public function editAction($id ,Request $request)
     {
-        $deleteForm = $this->createDeleteForm($alquiler);
-        $editForm = $this->createForm('AdministracionBundle\Form\AlquilerType', $alquiler);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace($data);
+        $em = $this->getDoctrine()->getManager();
+        $alquiler = $em->getRepository("AdministracionBundle:Alquiler")->find($id);
+        //confecciono una entidad empresa para asignar a mensaje
+        $propietarioArray= $request->request->get('propietario');
+        $idPropietario = $propietarioArray['id'];
+        
+        $alquiler->setPropietario($propietario);
+        
+         //confecciono una entidad empresa para asignar a mensaje
+         $localArray= $request->request->get('local');
+         $idLocal = $localArray['id'];
+         $em = $this->getDoctrine()->getManager();
+         $local = $em->getRepository("AdministracionBundle:Local")->find($idLocal);
+         $alquiler->setLocal($local);
 
-            return $this->redirectToRoute('alquiler_edit', array('id' => $alquiler->getId()));
-        }
-
-        return $this->render('alquiler/edit.html.twig', array(
-            'alquiler' => $alquiler,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $alquiler->setPlazomes($request->request->get('plazomes'));
+        $alquiler->setCostoalquiler($request->request->get('costoalquiler'));
+        
+        $fecha = new \DateTime($request->request->get('fecha'));
+        $alquiler->setFechaalquiler($fecha);
+                
+        $em->persist($alquiler);
+        $em->flush();
+        
+        $result['status'] = 'ok';
+        return new Response(json_encode($result), 200);
     }
 
     /**
@@ -134,33 +135,20 @@ class AlquilerController extends Controller
      * @Route("/{id}", name="alquiler_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Alquiler $alquiler)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($alquiler);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $alquiler = $em->getRepository('AdministracionBundle:Alquiler')->find($id);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($alquiler);
-            $em->flush();
+        if (!$alquiler){
+            throw $this->createNotFoundException('id incorrecta');
         }
 
-        return $this->redirectToRoute('alquiler_index');
+        $em->remove($alquiler);
+        $em->flush();
+        $result['status'] = 'ok';
+        return new Response(json_encode($result), 200);
     }
 
-    /**
-     * Creates a form to delete a alquiler entity.
-     *
-     * @param Alquiler $alquiler The alquiler entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Alquiler $alquiler)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('alquiler_delete', array('id' => $alquiler->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
+   
 }

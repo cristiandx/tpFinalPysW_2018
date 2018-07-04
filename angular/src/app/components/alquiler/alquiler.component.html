@@ -85,24 +85,34 @@
     </div>
     <div class="row">
       <div class="col-12">
+        <div class="col-3">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for...">
+                <span class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+        </div>
         <div class="col-md-8 mx-auto mt-2">
           <table class="table table-striped text-center" [mfData]="array" #mf="mfDataTable" [mfRowsOnPage]="4">
             <thead>
               <tr>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="superficie">Superficie</mfDefaultSorter>
+                  <mfDefaultSorter by="superficie">Propietario</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="habilitado">Habilitado</mfDefaultSorter>
+                  <mfDefaultSorter by="habilitado">Local</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="costomes">Costo Mes</mfDefaultSorter>
+                  <mfDefaultSorter by="costomes">Plazo Mes</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="pathimagen">Path Imagen</mfDefaultSorter>
+                  <mfDefaultSorter by="pathimagen">Costo Alquiler</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="alquilado">Alquilado</mfDefaultSorter>
+                  <mfDefaultSorter by="alquilado">Fecha</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
                   <mfDefaultSorter by="">Acciones</mfDefaultSorter>
