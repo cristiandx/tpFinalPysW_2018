@@ -80,3 +80,4 @@ public refreshList() {
     this.alquiler = this.array.filter(x => x === objeto).pop();
     this.btnactualizar = true;
   }
+}
