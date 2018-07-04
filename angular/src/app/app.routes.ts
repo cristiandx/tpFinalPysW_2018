@@ -7,6 +7,7 @@ import {AlquilerComponent} from './components/alquiler/alquiler.component';
 import {UsuarioComponent} from './components/usuario/usuario.component';
 
 const ROUTES: Routes = [
+  {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
   {path: 'propietario', component: PropietarioComponent},

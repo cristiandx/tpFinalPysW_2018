@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GaleriaService } from '../../services/galeria.service';
 import { Local } from '../../models/local';
-import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-local',
@@ -12,11 +11,11 @@ export class LocalComponent implements OnInit {
   submitted = false;
   btnactualizar = false;
   array: Array<Local> = [];
-  local: Local = new Local();
+  local: Local = new Local(0, true, 0, '', false);
 
-  constructor(private servicio: GaleriaService ) {
+  constructor(private servicio: GaleriaService) {
     this.servicio.route = 'local';
-   }
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -26,7 +25,7 @@ export class LocalComponent implements OnInit {
     this.refreshList();
   }
 
-public refreshList() {
+  public refreshList() {
     this.servicio.getAll().subscribe(
       result => {
         this.array = JSON.parse(result.locales);
@@ -41,6 +40,7 @@ public refreshList() {
     this.servicio.update(this.local).subscribe(
       result => {
         console.log('update correcto');
+        this.local = new Local(0, true, 0, '', false);
         this.btnactualizar = false;
         this.refreshList();
       },
@@ -53,7 +53,7 @@ public refreshList() {
       data => {
         console.log('envio ok');
         console.log('agregado correctamente.');
-        this.local = new Local();
+        this.local = new Local(0, true, 0, '', false);
         this.btnactualizar = false;
         this.refreshList();
         return true;
