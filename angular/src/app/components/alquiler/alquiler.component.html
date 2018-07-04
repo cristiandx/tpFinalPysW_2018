@@ -12,52 +12,63 @@
       <div class="col-sm-8 mx-auto">
         <form (ngSubmit)="onSubmit()" #myForm="ngForm">
           <!-- campo  -->
-          <div class="col">Superficie</div>
+          <div class="col">Propietario</div>
           <div class="col-10 mb-2">
-            <input class="form-control" name="superficie" type="number" placeholder="-" [(ngModel)]="local.superficie" #superficie="ngModel"
-              required/>
+            <select [(ngModel)]="alquiler.propietario" name="propietario">
+              <option *ngFor="let propietario of propietarios" [ngValue]="propietario">{{propietario.nombre}}</option>
+            </select>
             <div *ngIf="superficie.invalid && (superficie.dirty || superficie.touched)" class="alert alert-danger">
-              La superficie es obligatorio
+              El propietario es obligatorio
             </div>
           </div>
           <!--  -->
           <!-- campo  -->
-          <div class="col">Habilitado</div>
+          <div class="col">Local</div>
           <div class="col-10 mb-2">
-            <input class="form-control" name="habilitado" type="checkbox" 
-            [(ngModel)]="local.habilitado" #habilitado="ngModel"/>
-          </div>
-          <!--  -->
-          <!-- campo  -->
-          <div class="col">Costo Mes</div>
-          <div class="col-10 mb-2">
-            <input class="form-control" name="costomes" type="number" placeholder="$" 
-            [(ngModel)]="local.costomes" #costomes="ngModel"
-              required/>
-            <div *ngIf="costomes.invalid && (costomes.dirty || costomes.touched)" class="alert alert-danger">
-              El costo mes es obligatorio
+            <select [(ngModel)]="alquiler.local"
+                    #localcomercial="ngModel"
+                    name="local">
+              <option *ngFor="let local of locales" [ngValue]="local">{{local.superficie}}</option>
+            </select>
+            <div *ngIf="localcomercial.invalid && (localcomercial.dirty || localcomercial.touched)" class="alert alert-danger">
+              El Local es obligatorio
             </div>
           </div>
           <!--  -->
           <!-- campo  -->
-          <div class="col">Path Imagen</div>
+          <div class="col">Plazo Mes</div>
           <div class="col-10 mb-2">
-            <input class="form-control" name="pathimagen" type="text" placeholder="." 
-            [(ngModel)]="local.pathimagen" #pathimagen="ngModel"
+            <input class="form-control" name="plazomes" type="number" placeholder="-" 
+            [(ngModel)]="alquiler.plazomes" #plazomes="ngModel"
               required/>
-            <div *ngIf="pathimagen.invalid && (pathimagen.dirty || pathimagen.touched)" class="alert alert-danger">
-              El path imagen es obligatorio
+            <div *ngIf="plazomes.invalid && (plazomes.dirty || plazomes.touched)" class="alert alert-danger">
+              El plazo Mes mes es obligatorio
+            </div>
+          </div>
+          <!--  -->
+          <!-- campo  -->
+          <div class="col">Costo Alquiler</div>
+          <div class="col-10 mb-2">
+            <input class="form-control" name="costoalquiler" type="number" placeholder="$" 
+            [(ngModel)]="alquiler.costoalquiler" #costoalquiler="ngModel"
+              required/>
+            <div *ngIf="costoalquiler.invalid && (costoalquiler.dirty || costoalquiler.touched)" class="alert alert-danger">
+              El Costo Alquiler es obligatorio
             </div>
           </div>
           <!--  -->
 
-           <!-- campo  -->
-           <div class="col">Alquilado</div>
-           <div class="col-10 mb-2">
-             <input class="form-control" name="alquilado" type="checkbox" 
-             [(ngModel)]="local.alquilado" #alquilado="ngModel"/>
-           </div>
-           <!--  -->
+          <!-- campo  -->
+            <div class="col">Fecha</div>
+              <div class="col-10 mb-2">
+                <input class="form-control" name="costoalquiler" type="date" placeholder="--/--/----" 
+                [(ngModel)]="alquiler.fechaAlquiler" #fechaalquiler="ngModel"
+                  required/>
+                <div *ngIf="fechaalquiler.invalid && (fechaalquiler.dirty || fechaalquiler.touched)" class="alert alert-danger">
+                  El Costo Alquiler es obligatorio
+                </div>
+              </div>
+              <!--  -->
 
           <div class="row" *ngIf="!btnactualizar">
             <button type="submit" class="btn btn-primary" [disabled]="!myForm.form.valid || userValid" 

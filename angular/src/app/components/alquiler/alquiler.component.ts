@@ -29,7 +29,7 @@ export class AlquilerComponent implements OnInit {
 public refreshList() {
     this.servicio.getAll().subscribe(
       result => {
-        this.array = JSON.parse(result.locales);
+        this.array = JSON.parse(result.alquileres);
       },
       error => {
         console.log(error);
