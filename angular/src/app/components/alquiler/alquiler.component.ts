@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Alquiler } from '../../models/alquiler';
-import { GaleriaService } from '../../services/galeria.service';
+import {Component, OnInit} from '@angular/core';
+import {Alquiler} from '../../models/alquiler';
+import {GaleriaService} from '../../services/galeria.service';
+import {Propietario} from '../../models/propietario';
+import {Local} from '../../models/local';
 
 @Component({
   selector: 'app-alquiler',
@@ -13,10 +15,13 @@ export class AlquilerComponent implements OnInit {
   btnactualizar = false;
   array: Array<Alquiler> = [];
   alquiler: Alquiler = new Alquiler();
+  propietarios: Array<Propietario> = [];
+  locales: Array<Local> = [];
 
-  constructor(private servicio: GaleriaService ) {
-    this.servicio.route = 'alquiler';
-   }
+  constructor(private servicio: GaleriaService) {
+    this.cargarLocales();
+    this.cargarPropietarios();
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -26,7 +31,32 @@ export class AlquilerComponent implements OnInit {
     this.refreshList();
   }
 
-public refreshList() {
+  public cargarPropietarios() {
+    this.servicio.route = 'propietario';
+    this.servicio.getAll().subscribe(
+      result => {
+        this.propietarios = JSON.parse(result.propietarios);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public cargarLocales() {
+    this.servicio.route = 'local';
+    this.servicio.getAll().subscribe(
+      result => {
+        this.locales = JSON.parse(result.locales);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public refreshList() {
+    this.servicio.route = 'alquiler';
     this.servicio.getAll().subscribe(
       result => {
         this.array = JSON.parse(result.alquileres);
