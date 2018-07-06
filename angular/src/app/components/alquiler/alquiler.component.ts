@@ -110,4 +110,14 @@ export class AlquilerComponent implements OnInit {
     this.alquiler = this.array.filter(x => x === objeto).pop();
     this.btnactualizar = true;
   }
+
+  filtrarFecha(fecha) {
+    console.log('fecha:' + fecha.value.substring(0, 4));
+    const a = this.array.filter(x => {
+     const f =  x.fechaAlquiler;
+      console.log(f);
+      // return f.toDateString().substring(0, 4) === fecha.value.substring(0, 4);
+    });
+    // console.log(a);
+  }
 }

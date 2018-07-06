@@ -14,9 +14,10 @@ export class HeaderComponent implements OnInit {
   isAdministrativo = false;
   isPropietario = false;
 
-  constructor(private router: Router,
-    private servicio: AuthenticationService) {
-  }
+  constructor(
+    private router: Router,
+    private servicio: AuthenticationService
+  ) { }
 
   ngOnInit() {
     this.actualizar();

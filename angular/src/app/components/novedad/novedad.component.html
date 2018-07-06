@@ -11,51 +11,38 @@
     <div class="row">
       <div class="col-sm-8 mx-auto">
         <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+         <!-- campo  -->
+         <div class="col">Usuario</div>
+         <div class="col-10 mb-2">
+           <select [(ngModel)]="novedad.usuario" class="form-control"
+           name="usuario" #usuarioform="ngModel">
+             <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{usuario.usuario}}</option>
+           </select>
+           <div *ngIf="usuarioform.invalid && (usuarioform.dirty || usuarioform.touched)" class="alert alert-danger">
+             El usuario es obligatorio
+           </div>
+         </div>
+         <!--  -->
           <!-- campo  -->
-          <div class="col">Superficie</div>
+          <div class="col">Texto</div>
           <div class="col-10 mb-2">
-            <input class="form-control" name="superficie" type="number" placeholder="-" [(ngModel)]="local.superficie" #superficie="ngModel"
+            <input class="form-control" name="texto" type="text" placeholder="descripcion de la novedad" 
+            [(ngModel)]="novedad.texto" #textoform="ngModel"
               required/>
-            <div *ngIf="superficie.invalid && (superficie.dirty || superficie.touched)" class="alert alert-danger">
-              La superficie es obligatorio
-            </div>
-          </div>
-          <!--  -->
-          <!-- campo  -->
-          <div class="col">Habilitado</div>
-          <div class="col-10 mb-2">
-            <input class="form-control" name="habilitado" type="checkbox" 
-            [(ngModel)]="local.habilitado" #habilitado="ngModel"/>
-          </div>
-          <!--  -->
-          <!-- campo  -->
-          <div class="col">Costo Mes</div>
-          <div class="col-10 mb-2">
-            <input class="form-control" name="costomes" type="number" placeholder="$" 
-            [(ngModel)]="local.costomes" #costomes="ngModel"
-              required/>
-            <div *ngIf="costomes.invalid && (costomes.dirty || costomes.touched)" class="alert alert-danger">
-              El costo mes es obligatorio
-            </div>
-          </div>
-          <!--  -->
-          <!-- campo  -->
-          <div class="col">Path Imagen</div>
-          <div class="col-10 mb-2">
-            <input class="form-control" name="pathimagen" type="text" placeholder="." 
-            [(ngModel)]="local.pathimagen" #pathimagen="ngModel"
-              required/>
-            <div *ngIf="pathimagen.invalid && (pathimagen.dirty || pathimagen.touched)" class="alert alert-danger">
-              El path imagen es obligatorio
+            <div *ngIf="textoform.invalid && (textoform.dirty || textoform.touched)" class="alert alert-danger">
+              El texto es obligatorio
             </div>
           </div>
           <!--  -->
 
            <!-- campo  -->
-           <div class="col">Alquilado</div>
+           <div class="col">Estado</div>
            <div class="col-10 mb-2">
-             <input class="form-control" name="alquilado" type="checkbox" 
-             [(ngModel)]="local.alquilado" #alquilado="ngModel"/>
+             <select name="novedad" class="form-control" title="seleccione..."
+             [(ngModel)]="novedad.estado" >
+               <option value="pendiente">Pendiente</option>
+               <option value="procesado">procesado</option>
+             </select>
            </div>
            <!--  -->
 
@@ -79,19 +66,13 @@
             <thead>
               <tr>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="superficie">Superficie</mfDefaultSorter>
+                  <mfDefaultSorter by="usuario">Usuairo</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="habilitado">Habilitado</mfDefaultSorter>
+                  <mfDefaultSorter by="texto">Texto</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
-                  <mfDefaultSorter by="costomes">Costo Mes</mfDefaultSorter>
-                </th>
-                <th style="width: 10%">
-                  <mfDefaultSorter by="pathimagen">Path Imagen</mfDefaultSorter>
-                </th>
-                <th style="width: 10%">
-                  <mfDefaultSorter by="alquilado">Alquilado</mfDefaultSorter>
+                  <mfDefaultSorter by="estado">Estado</mfDefaultSorter>
                 </th>
                 <th style="width: 10%">
                   <mfDefaultSorter by="">Acciones</mfDefaultSorter>
@@ -100,11 +81,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of mf.data">
-                <td>{{item.superficie}}</td>
-                <td>{{item.habilitado}}</td>
-                <td>{{item.costomes}}</td>
-                <td>{{item.pathimagen}}</td>
-                <td>{{item.alquilado}}</td>
+                <td>{{item.usuario.usuario}}</td>
+                <td>{{item.texto}}</td>
+                <td>{{item.estado}}</td>
                 <td>
                   <button class="btn" (click)="elegir(item)">Seleccionar
                   </button>
@@ -138,4 +117,3 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fa fa-angle-up"></i>
   </a>
-   

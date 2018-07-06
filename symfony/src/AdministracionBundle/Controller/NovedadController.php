@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 /*AGREGADOs*/
 
 /**
- * novedad controller.
+ * Novedad controller.
  *
  * @Route("novedad")
  */
@@ -30,7 +30,7 @@ class NovedadController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $novedads = $em->getRepository('AdministracionBundle:novedad')->findAll();
+        $novedades = $em->getRepository('AdministracionBundle:Novedad')->findAll();
         $response = new Response();
         $encoders = array(new JsonEncoder());
 
@@ -43,7 +43,7 @@ class NovedadController extends Controller
 
         $serializer = new Serializer($normalizers, $encoders);
         $response->setContent(json_encode(array(
-        'novedads' => $serializer->serialize($novedads, 'json'),
+        'novedades' => $serializer->serialize($novedades, 'json'),
         )));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
@@ -61,12 +61,15 @@ class NovedadController extends Controller
         $request->request->replace($data);
         //cMBIAR
         $novedad = new Novedad();
-        $novedad->setUsuario($request->request->get('usuario'));
+         //confecciono una entidad empresa para asignar a mensaje
+         $usuarioArray= $request->request->get('usuario');
+         $idusuario = $usuarioArray['id'];
+         $em = $this->getDoctrine()->getManager();
+         $usuario = $em->getRepository("AdministracionBundle:Usuario")->find($idusuario);
+         $novedad->setUsuario($usuario);
+
         $novedad->setTexto($request->request->get('texto'));
         $novedad->setEstado($request->request->get('estado'));
-       
-
-        
         $em = $this->getDoctrine()->getManager();
         
         $em->persist($novedad);
@@ -90,9 +93,13 @@ class NovedadController extends Controller
         $request->request->replace($data);
 
         $em = $this->getDoctrine()->getManager();
-        $novedad = $em->getRepository('AdministracionBundle:novedad')->find($id);
-//cambiar
-        $novedad->setUsuario($request->request->get('usuario'));
+        $novedad = $em->getRepository('AdministracionBundle:Novedad')->find($id);
+        //confecciono una entidad empresa para asignar a mensaje
+        $usuarioArray= $request->request->get('usuario');
+        $idusuario = $usuarioArray['id'];
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $em->getRepository("AdministracionBundle:Usuario")->find($idusuario);
+        $novedad->setUsuario($usuario);
         $novedad->setTexto($request->request->get('texto'));
         $novedad->setEstado($request->request->get('estado'));
         
@@ -116,7 +123,7 @@ class NovedadController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $novedad = $em->getRepository('AdministracionBundle:novedad')->find($id);
+        $novedad = $em->getRepository('AdministracionBundle:Novedad')->find($id);
 
         if (!$novedad){
             throw $this->createNotFoundException('id incorrecta');

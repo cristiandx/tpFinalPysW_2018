@@ -14,6 +14,7 @@ import { PropietarioComponent } from './components/propietario/propietario.compo
 import { LocalComponent } from './components/local/local.component';
 import { AlquilerComponent } from './components/alquiler/alquiler.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
+import { NovedadComponent } from './components/novedad/novedad.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
     PropietarioComponent,
     LocalComponent,
     AlquilerComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    NovedadComponent
   ],
   imports: [
     BrowserModule,

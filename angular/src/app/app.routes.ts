@@ -5,6 +5,7 @@ import {PropietarioComponent} from './components/propietario/propietario.compone
 import {LocalComponent} from './components/local/local.component';
 import {AlquilerComponent} from './components/alquiler/alquiler.component';
 import {UsuarioComponent} from './components/usuario/usuario.component';
+import { NovedadComponent } from './components/novedad/novedad.component';
 
 const ROUTES: Routes = [
   {path: '', component: HomeComponent},
@@ -14,6 +15,7 @@ const ROUTES: Routes = [
   {path: 'local', component: LocalComponent},
   {path: 'alquiler', component: AlquilerComponent},
   {path: 'usuario', component: UsuarioComponent},
+  {path: 'novedad', component: NovedadComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'login'}
 ];
 

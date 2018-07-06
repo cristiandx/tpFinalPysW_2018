@@ -13,14 +13,15 @@ export class AuthenticationService {
   userLogged: Usuario = new Usuario();
   private subject: Subject<Usuario> = new Subject();
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http
+  ) { }
 
   login(usuario: string, password: string) {
       return this.http.post('http://localhost/tpFinalPysW_2018/symfony/web/app_dev.php/usuario/authenticate',
        JSON.stringify({ usuario: usuario, password: password }),
-      ).map(res => res.json());
+      ).map((res: Response) => res.json() );
   }
-
   logout() {
       // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
