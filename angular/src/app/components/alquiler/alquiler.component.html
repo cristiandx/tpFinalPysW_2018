@@ -14,7 +14,8 @@
           <!-- campo  -->
           <div class="col">Propietario</div>
           <div class="col-10 mb-2">
-            <select [(ngModel)]="alquiler.propietario" name="propietario" #propietarioform="ngModel">
+            <select [(ngModel)]="alquiler.propietario"
+            class="form-control" name="propietario" #propietarioform="ngModel">
               <option *ngFor="let propietario of propietarios" [ngValue]="propietario">{{propietario.nombres}}</option>
             </select>
             <div *ngIf="propietarioform.invalid && (propietarioform.dirty || propietarioform.touched)" class="alert alert-danger">
@@ -26,6 +27,7 @@
           <div class="col">Local</div>
           <div class="col-10 mb-2">
             <select [(ngModel)]="alquiler.local"
+                    class="form-control"
                     #localcomercial="ngModel"
                     name="local">
               <option *ngFor="let local of locales" [ngValue]="local">{{local.superficie}}</option>
