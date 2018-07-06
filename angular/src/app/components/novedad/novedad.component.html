@@ -15,6 +15,7 @@
          <div class="col">Usuario</div>
          <div class="col-10 mb-2">
            <select [(ngModel)]="novedad.usuario" class="form-control"
+           (change)="setUsuario(myForm)"
            name="usuario" #usuarioform="ngModel">
              <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{usuario.usuario}}</option>
            </select>

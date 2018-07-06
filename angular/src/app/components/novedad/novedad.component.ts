@@ -12,7 +12,7 @@ export class NovedadComponent implements OnInit {
   submitted = false;
   btnactualizar = false;
   array: Array<Novedad> = [];
-  novedad: Novedad = new Novedad();
+  novedad: Novedad = new Novedad(new Usuario());
   usuarios: Array<Usuario> = [];
 
   constructor(private servicio: GaleriaService ) {
@@ -55,7 +55,7 @@ public refreshList() {
       result => {
         console.log('update correcto');
         this.btnactualizar = false;
-        this.novedad = new Novedad();
+        this.novedad = new Novedad(new Usuario());
         this.refreshList();
       },
       error => console.log('error: ' + error)
@@ -68,7 +68,7 @@ public refreshList() {
       data => {
         console.log('envio ok');
         console.log('agregado correctamente.');
-        this.novedad = new Novedad();
+        this.novedad = new Novedad(new Usuario());
         this.btnactualizar = false;
         this.refreshList();
         return true;
@@ -92,6 +92,7 @@ public refreshList() {
   }
 
   elegir(objeto: any) {
+    // this.novedad = this.array.filter(x => x === objeto).pop();
     this.novedad = this.array.filter(x => {
         if (x === objeto) {
           x.usuario = objeto.usuario;
@@ -99,5 +100,10 @@ public refreshList() {
         }
       }).pop();
     this.btnactualizar = true;
+  }
+  setUsuario(form) {
+    const userSelect: Usuario = form.controls['usuario'].value;
+    this.novedad.usuario = userSelect;
+    // this.novedad.usuario = this.usuarios.filter(x => x.id === user.id).pop();
   }
 }
