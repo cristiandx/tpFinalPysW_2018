@@ -112,12 +112,22 @@ export class AlquilerComponent implements OnInit {
   }
 
   filtrarFecha(fecha) {
-    console.log('fecha:' + fecha.value.substring(0, 4));
-    const a = this.array.filter(x => {
-     const f =  x.fechaAlquiler;
-      console.log(f);
-      // return f.toDateString().substring(0, 4) === fecha.value.substring(0, 4);
-    });
+    console.log(fecha);
+    // const a = this.array.filter(x => {
+    //  const f =  x.fechaAlquiler;
+    //   console.log(f);
+    //   // return f.toDateString().substring(0, 4) === fecha.value.substring(0, 4);
+    // }
     // console.log(a);
+  }
+  setPropietario(form) {
+    const selected: Propietario = form.controls['propietario'].value;
+    this.alquiler.propietario = selected;
+    // this.novedad.usuario = this.usuarios.filter(x => x.id === user.id).pop();
+  }
+  setLocal(form) {
+    const selected: Local = form.controls['local'].value;
+    this.alquiler.local = selected;
+    // this.novedad.usuario = this.usuarios.filter(x => x.id === user.id).pop();
   }
 }

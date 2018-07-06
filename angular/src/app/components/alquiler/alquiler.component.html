@@ -15,6 +15,7 @@
           <div class="col">Propietario</div>
           <div class="col-10 mb-2">
             <select [(ngModel)]="alquiler.propietario"
+            (change)="setPropietario(myForm)"
             class="form-control" name="propietario" #propietarioform="ngModel">
               <option *ngFor="let propietario of propietarios" [ngValue]="propietario">{{propietario.nombres}}</option>
             </select>
@@ -27,6 +28,7 @@
           <div class="col">Local</div>
           <div class="col-10 mb-2">
             <select [(ngModel)]="alquiler.local"
+            (change)="setLocal(myForm)"
                     class="form-control"
                     #localcomercial="ngModel"
                     name="local">
@@ -87,9 +89,9 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div class="col-3">
+        <div class="col-2">
             <div class="input-group">
-                <input class="form-control" #txtFecha  type="date" placeholder="Buscar ...">
+                <input class="form-control" #txtFecha  type="text" placeholder="Buscar ...">
                 <span class="input-group-append">
                   <button (click)="filtrarFecha(txtFecha)"
                   class="btn btn-primary" type="button">

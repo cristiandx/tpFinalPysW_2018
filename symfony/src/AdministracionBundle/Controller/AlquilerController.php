@@ -106,7 +106,7 @@ class AlquilerController extends Controller
         //confecciono una entidad empresa para asignar a mensaje
         $propietarioArray= $request->request->get('propietario');
         $idPropietario = $propietarioArray['id'];
-        
+        $propietario = $em->getRepository("AdministracionBundle:Propietario")->find($idPropietario);
         $alquiler->setPropietario($propietario);
         
          //confecciono una entidad empresa para asignar a mensaje

@@ -15,9 +15,8 @@
          <div class="col">Usuario</div>
          <div class="col-10 mb-2">
            <select [(ngModel)]="novedad.usuario" class="form-control"
-           (change)="setUsuario(myForm)"
-           name="usuario" #usuarioform="ngModel">
-             <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{usuario.usuario}}</option>
+           name="usuario" #usuarioform="ngModel" required>
+             <option [value]="usuario">{{usuario.usuario}}</option>
            </select>
            <div *ngIf="usuarioform.invalid && (usuarioform.dirty || usuarioform.touched)" class="alert alert-danger">
              El usuario es obligatorio
@@ -27,10 +26,10 @@
           <!-- campo  -->
           <div class="col">Texto</div>
           <div class="col-10 mb-2">
-            <input class="form-control" name="texto" type="text" placeholder="descripcion de la novedad" 
+            <input class="form-control" name="texto" placeholder="descripcion de la novedad" 
             [(ngModel)]="novedad.texto" #textoform="ngModel"
               required/>
-            <div *ngIf="textoform.invalid && (textoform.dirty || textoform.touched)" class="alert alert-danger">
+            <div *ngIf="textoform.invalid&& textoform.touched" class="alert alert-danger">
               El texto es obligatorio
             </div>
           </div>
@@ -40,7 +39,7 @@
            <div class="col">Estado</div>
            <div class="col-10 mb-2">
              <select name="novedad" class="form-control" title="seleccione..."
-             [(ngModel)]="novedad.estado" >
+             [(ngModel)]="novedad.estado" required >
                <option value="pendiente">Pendiente</option>
                <option value="procesado">procesado</option>
              </select>

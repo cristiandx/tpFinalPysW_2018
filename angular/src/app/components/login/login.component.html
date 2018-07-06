@@ -9,10 +9,10 @@
             type="text" aria-describedby="emailHelp" placeholder="Ingrese Nombre de usuario"
             [(ngModel)]="userform.usuario" #username="ngModel" required 
             >
-            <div [hidden]="username.invalid && (username.dirty || username.touched)"
+            <!-- <div [hidden]="username.invalid"
              class="alert alert-danger">
               El Usuario es necesario
-            </div>
+            </div> -->
 
           </div>
           <div class="form-group">
@@ -21,10 +21,10 @@
             placeholder="Password" name="password"
             [(ngModel)]="userform.password" #password="ngModel" required 
             >
-            <div [hidden]="password.invalid && (password.dirty || password.touched)"
+            <!-- <div [hidden]="password.invalid"
               class="alert alert-danger">
               El Usuario es necesario
-            </div>
+            </div> -->
           </div>
           <div class="form-group">
             <div class="form-check">
