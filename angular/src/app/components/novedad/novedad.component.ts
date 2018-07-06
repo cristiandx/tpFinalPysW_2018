@@ -55,6 +55,7 @@ public refreshList() {
       result => {
         console.log('update correcto');
         this.btnactualizar = false;
+        this.novedad = new Novedad();
         this.refreshList();
       },
       error => console.log('error: ' + error)
@@ -91,8 +92,12 @@ public refreshList() {
   }
 
   elegir(objeto: any) {
-    this.novedad = this.array.filter(x => x === objeto).pop();
-    
+    this.novedad = this.array.filter(x => {
+        if (x === objeto) {
+          x.usuario = objeto.usuario;
+          return x;
+        }
+      }).pop();
     this.btnactualizar = true;
   }
 }
