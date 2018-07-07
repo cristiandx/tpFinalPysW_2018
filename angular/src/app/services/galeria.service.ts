@@ -7,14 +7,19 @@ import 'rxjs/add/operator/map';
 })
 export class GaleriaService {
 
-  port = '';
+  base_url = 'http://localhost/tpFinalPysW_2018/symfony/web/app_dev.php/';
   route = '';
 
   constructor(private _http: Http) {
   }
 
   getAll() {
-    return this._http.get('http://localhost' + this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/')
+    return this._http.get( this.base_url + this.route )
+      .map(res => res.json());
+  }
+
+  getByYear(year: Number) {
+    return this._http.get( this.base_url + this.route + '/' + year)
       .map(res => res.json());
   }
 
@@ -23,7 +28,7 @@ export class GaleriaService {
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(data);
     console.log('entro service create');
-    return this._http.post('http://localhost' + this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/new', body, options)
+    return this._http.post(this.base_url + this.route + '/new', body, options)
       .map((res: Response) => res.json());
   }
 
@@ -32,14 +37,13 @@ export class GaleriaService {
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(data);
     // envio en el body el mensaje transformado en un JSON
-    return this._http.post('http://localhost' +
-     this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/' + data.id + '/edit', body, options)
+    return this._http.post(this.base_url + this.route + '/' + data.id + '/edit', body, options)
       .map((res: Response) => res.json());
   }
 
   delete(data: any) {
     // utilizo el metodo delete de http que es el configurado en el deleteAction de Symfony
-    return this._http.delete(('http://localhost' + this.port + '/tpFinalPysW_2018/symfony/web/app_dev.php/' + this.route + '/' + data.id))
+    return this._http.delete((this.base_url + this.route + '/' + data.id))
       .map((res: Response) => res.json());
   }
 }

@@ -49,6 +49,39 @@ class AlquilerController extends Controller
     }
 
     /**
+     * Lists all alquiler by year.
+     *
+     * @Route("/{year}", name="alquiler_filtro")
+     * @Method("GET")
+     */
+    public function filtroAction($year)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AdministracionBundle:Alquiler');
+        $query = $repo->createQueryBuilder('a')
+               ->where('a.fechaalquiler LIKE :fecha')
+               ->setParameter('fecha', $year.'%')
+               ->getQuery();
+
+        $alquileres = $query->getResult();
+        $response = new Response();
+        $encoders = array(new JsonEncoder());
+        $normalizers = array((new ObjectNormalizer())->setIgnoredAttributes(
+            [
+                "__initializer__", 
+                "__cloner__",
+                "__isInitialized__"
+            ]));
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $response->setContent(json_encode(array(
+        'alquileres' => $serializer->serialize($alquileres, 'json'),
+        )));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
      * Creates a new alquiler entity.
      *
      * @Route("/new", name="alquiler_new")

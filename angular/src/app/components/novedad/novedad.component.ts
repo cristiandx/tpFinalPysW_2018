@@ -18,9 +18,9 @@ export class NovedadComponent implements OnInit {
   usuario: Usuario = new Usuario();
   constructor(
     private authenticationService: AuthenticationService,
-    private servicio: GaleriaService ) {
+    private servicio: GaleriaService) {
 
-   }
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -32,8 +32,8 @@ export class NovedadComponent implements OnInit {
     this.usuario = this.authenticationService.userLogged;
   }
 
-public refreshList() {
-  this.servicio.route = 'novedad';
+  public refreshList() {
+    this.servicio.route = 'novedad';
     this.servicio.getAll().subscribe(
       result => {
         const temp: Array<Novedad> = JSON.parse(result.novedades);
@@ -79,7 +79,7 @@ public refreshList() {
       data => {
         console.log('envio ok');
         console.log('agregado correctamente.');
-        this.novedad = new Novedad(new Usuario(),' ',null);
+        this.novedad = new Novedad(new Usuario(), ' ', null);
         this.btnactualizar = false;
         this.refreshList();
         return true;
@@ -105,11 +105,11 @@ public refreshList() {
   elegir(objeto: any) {
     // this.novedad = this.array.filter(x => x === objeto).pop();
     this.novedad = this.array.filter(x => {
-        if (x === objeto) {
-          x.usuario = objeto.usuario;
-          return x;
-        }
-      }).pop();
+      if (x === objeto) {
+        x.usuario = objeto.usuario;
+        return x;
+      }
+    }).pop();
     this.btnactualizar = true;
   }
   // setUsuario(form) {

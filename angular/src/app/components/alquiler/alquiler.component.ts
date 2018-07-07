@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Alquiler} from '../../models/alquiler';
-import {GaleriaService} from '../../services/galeria.service';
-import {Propietario} from '../../models/propietario';
-import {Local} from '../../models/local';
+import { Component, OnInit } from '@angular/core';
+import { Alquiler } from '../../models/alquiler';
+import { GaleriaService } from '../../services/galeria.service';
+import { Propietario } from '../../models/propietario';
+import { Local } from '../../models/local';
 
 @Component({
   selector: 'app-alquiler',
@@ -112,7 +112,20 @@ export class AlquilerComponent implements OnInit {
   }
 
   filtrarFecha(fecha) {
-    console.log(fecha);
+    console.log(fecha.value);
+    this.servicio.route = 'alquiler';
+    if (fecha.value !== '') {
+      this.servicio.getByYear(fecha.value).subscribe(
+        result => {
+          this.array = JSON.parse(result.alquileres);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.refreshList();
+    }
     // const a = this.array.filter(x => {
     //  const f =  x.fechaAlquiler;
     //   console.log(f);
